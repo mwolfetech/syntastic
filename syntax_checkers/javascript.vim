@@ -29,8 +29,18 @@ if executable("jsl")
             let jslconf = " -conf " . g:syntastic_jsl_conf
         endif
         "makeprg syntax for jsl svn as of 08/21/2010
-        let makeprg = "jsl" . jslconf . "--nologo --nofilelisting --nosummary --nosummary --conf=$HOME/.jslrc ".shellescape(expand('%'))
-        let errorformat='%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G'
+        "let makeprg = "jsl " . jslconf . "--nologo --nofilelisting --nosummary --conf=$HOME/.jslrc ".shellescape(expand('%'))
+        "let errorformat='%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G'
+        "makeprg for closure lint
+         "let makeprg = "gjslint --nojsdoc --nobeep --unix_mode ".shellescape(expand('%'))
+
+         "let errorformat='%f:%l:(%n) %m,%-GFound %.%#,%-G,%-GSome %.%#,%-Gfixjsstyle. %.%#,%-Gscript %.%#,%-Gfixjsstyle %.%#,%-G1 files checked\, %.%#'
+       "makeprg for myjsl combined
+         let makeprg = "myjsl ".shellescape(expand('%'))
+
+         "let errorformat='%f:%l:(%n) %m,%-GFound %.%#,%-G,%-GSome %.%#,%-Gfixjsstyle. %.%#,%-Gscript %.%#,%-Gfixjsstyle %.%#,%-G1 files checked\, %.%#'
+         let errorformat='%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G,%f:%l:(%n) %m,%-GFound %.%#,%-GSome %.%#,%-Gfixjsstyle. %.%#,%-Gscript %.%#,%-Gfixjsstyle %.%#,%-G1 files checked\, %.%#'
+
         return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
     endfunction
     " We're using jsl, finished.
